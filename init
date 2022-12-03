@@ -1,0 +1,77 @@
+#!/bin/bash
+
+mkdir Day\ $1
+echo "Created Day $1"
+cd Day\ $1
+echo "Moved to Day $1"
+
+cargo init Day-$1
+echo "Created Rust project for Day $1"
+touch Day-$1/src/lib.rs
+echo "Created lib.rs"
+touch Day-$1/src/parts.rs
+echo "Created parts.rs"
+
+MAIN_TEMPLATE="
+pub use Day_$1::parts::*;
+fn main() {
+    let mut input = Vec::new();
+    // Grab the lines and place them into input
+    // `input.txt` is the file containing the puzzle problem.
+    let file = std::fs::read_to_string(\"input.txt\").unwrap();
+    for line in file.lines() {
+        input.push(line);
+    }
+    println!(\"Part 1: {}\", part_one(input.to_owned()));
+    println!(\"Part 2: {}\", part_two(input.to_owned()));
+}
+"
+
+LIB_TEMPLATE="
+pub mod parts;
+
+#[cfg(test)]
+pub mod tests {
+    pub use super::*;
+    pub use crate::parts::*;
+
+    #[test]
+    fn test_part_one() {
+        let mut input = vec![
+
+        ]
+        assert_eq!(part_one(input), 0);
+    }
+
+    #[test]
+    fn test_part_two() {
+        let mut input = vec![
+
+        ]
+        assert_eq!(part_one(input), 0);
+    }
+}
+"
+
+PARTS_TEMPLATE="
+pub fn part_one(lines: Vec<&str>) -> u32 {
+    u32::default()
+}
+
+pub fn part_two(lines: Vec<&str>) -> u32 {
+    u32::default()
+}
+"
+
+
+printf "$LIB_TEMPLATE" >> Day-$1/src/lib.rs
+# Reset main.rs
+truncate -s 0 Day-$1/src/main.rs
+printf "$MAIN_TEMPLATE" >> Day-$1/src/main.rs
+printf "$PARTS_TEMPLATE" >> Day-$1/src/parts.rs
+
+source ../.env
+curl -H "Cookie: session=$SESSION" https://adventofcode.com/2022/day/$1/input > Day-$1/input.txt
+
+exit
+return
