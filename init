@@ -39,7 +39,7 @@ pub mod tests {
     fn test_part_one() {
         let mut input = vec![
 
-        ]
+        ];
         assert_eq!(part_one(input), 0);
     }
 
@@ -47,8 +47,8 @@ pub mod tests {
     fn test_part_two() {
         let mut input = vec![
 
-        ]
-        assert_eq!(part_one(input), 0);
+        ];
+        assert_eq!(part_two(input), 0);
     }
 }
 "
