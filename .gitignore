@@ -1,6 +1,7 @@
-
-Day 1/target
-Day 1/main
-Day 2/target
-Day 2/Cargo.lock
-Day 3/Day-3/target
+Day */Day-*/*
+!Day */
+!Day */Day-*/
+!Day */Day-*/Cargo.toml
+!Day */Day-*/src/
+!Day */Day-*/src/*.rs
+!Day */Day-*/src/input.txt
